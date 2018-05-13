@@ -3,20 +3,18 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 const koaBody = require("koa-body");
-const static = require("koa-static");
-const routerController = require("./controller");
+let staticFiles = require('./static-files'); 
+//也可以用koa-static实现: const static = require("koa-static"); app.use(static(__dirname, '/static'));
+let routerController = require("./controller");
 
 const app =new koa();
 
-const staticPath = './static';
-app.use(static(__dirname, '/public'));
 
 
 const main = (ctx, next) => {
     ctx.response.type = 'html';
     console.log(`${Date.now()} ${ctx.request.method} ${ctx.request.url}`);
     next();
-    // ctx.response.body = fs.createReadStream('./template.html');
 }
 
 const uploadFile = async ctx => {
@@ -39,6 +37,7 @@ const uploadFile = async ctx => {
     
 }
 
+app.use(staticFiles('/static/', __dirname+'/static'));
 app.use(koaBody({multipart:true}));
 app.use(main);
 // app.use(route.post('/upload', uploadFile))
