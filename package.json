@@ -21,6 +21,9 @@
     "handlebars-layouts": "^3.1.4",
     "koa-views": "^6.1.4",
     "mime": "^2.3.1",
-    "mz": "^2.7.0"
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
+    "mz": "^2.7.0",
+    "sequelize": "^4.37.7"
   }
 }
