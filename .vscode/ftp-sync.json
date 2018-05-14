@@ -1,0 +1,24 @@
+{
+    "remotePath": "/root/lxf/zkoa",
+    "host": "119.28.133.28",
+    "username": "root",
+    "password": "txy123@",
+    "port": 22,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "uploadOnSave": false,
+        "extensionsToInclude": [],
+        "path": ""
+    }
+}

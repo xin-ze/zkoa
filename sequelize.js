@@ -5,7 +5,7 @@ const config = require('./config');
     // 第一步 创建一个sequelize对象实例:
     var sequelize = await new Sequelize(config.database, config.username, config.password, {
         host: config.host,
-        dialect: 'mysql',
+        dialect: config.dialect,
         pool: {
             max: 5,
             min: 0,
@@ -24,7 +24,7 @@ const config = require('./config');
         gender: Sequelize.BOOLEAN,
         birth: Sequelize.STRING(10),
         createdAt: Sequelize.BIGINT,
-        updateAt: Sequelize.BIGINT,
+        updatedAt: Sequelize.BIGINT,
         version: Sequelize.BIGINT
     }, {
         timestamps: false
@@ -38,10 +38,10 @@ const config = require('./config');
         gender: false,
         birth: '2008-05-12',
         createdAt: now,
-        updateAt: now,
+        updatedAt: now,
         version: 0
     }).then((p) => {
-        cosole.log("created." + JSON.stringify(p));
+        console.log("created." + JSON.stringify(p));
     }).catch((e) => {
         console.log("failed: " + e);
     })

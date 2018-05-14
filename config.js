@@ -1,9 +1,25 @@
-var config = {
-    database: 'test', // 使用哪个数据库
-    username: 'www', // 用户名
-    password: 'www@123456', // 口令
-    host: '119.28.133.28', // 主机名
-    port: 3306 // 端口号，MySQL默认3306
-};
+const defaultConfig = './config-default.js';
+const testConfig = './config-test.js';
+const overrideConfig = './config-override.js';
 
-module.exports = config;
+const fs = require('fs');
+
+var config = null;
+
+if(process.env.NODE_ENV === 'test'){
+    console.log(`load ${testConfig}`);
+    config = require(testConfig);
+}else{
+    console.log(`load ${defaultConfig}`);
+    config = require(defaultConfig);
+    try {
+        if(fs.statSync(__dirname + 'config-override.js').isFile()){
+            console.log(`load ${overrideConfig}`);
+            config = Object.assign(config, require(overrideConfig));
+        }
+    } catch (err) {
+        console.log(`Cannot load ${overrideConfig}`);
+    }
+}
+
+moduel.exports = config;
