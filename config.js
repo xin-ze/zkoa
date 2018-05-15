@@ -1,3 +1,4 @@
+// 配置文件入口
 const defaultConfig = './config-default.js';
 const testConfig = './config-test.js';
 const overrideConfig = './config-override.js';
@@ -22,4 +23,4 @@ if(process.env.NODE_ENV === 'test'){
     }
 }
 
-moduel.exports = config;
+module.exports = config;
