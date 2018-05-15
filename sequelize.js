@@ -15,14 +15,12 @@ const config = require('./config');
 
     console.log("-------");
     // 第二步 定义模型:
-    var Pet = sequelize.define('pet', {
-        id: {
-            type: Sequelize.STRING(50),
-            primaryKey: true
+    var Pet = sequelize.define('user', {
+        email: {
+            type: Sequelize.STRING(20),
+            unique: true
         },
-        name: Sequelize.STRING(100),
-        gender: Sequelize.BOOLEAN,
-        birth: Sequelize.STRING(10),
+        name: Sequelize.STRING(50),
         createdAt: Sequelize.BIGINT,
         updatedAt: Sequelize.BIGINT,
         version: Sequelize.BIGINT
@@ -32,17 +30,20 @@ const config = require('./config');
 
     let now = Date.now();
 
-    Pet.create({
-        id: 'g-' + now,
-        name: 'Gaffey',
-        gender: false,
-        birth: '2008-05-12',
-        createdAt: now,
-        updatedAt: now,
-        version: 0
-    }).then((p) => {
-        console.log("created." + JSON.stringify(p));
-    }).catch((e) => {
-        console.log("failed: " + e);
+
+    sequelize.sync().then(() => {
+        console.log("-----sync ok....");
     })
+
+    // Pet.create({
+    //     email: '1173425790@qq.com',
+    //     name: 'hmz',
+    //     createdAt: now,
+    //     updatedAt: now,
+    //     version: 0
+    // }).then((p) => {
+    //     console.log("created." + JSON.stringify(p));
+    // }).catch((e) => {
+    //     console.log("failed: " + e);
+    // })
 })()

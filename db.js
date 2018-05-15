@@ -22,7 +22,7 @@ let defineModel = (name, attributes) => {
     let attrs = {};
     for(let key in attributes){
         let value = attributes[key];
-        if(typeof value == 'object' && value[type]) {
+        if(typeof value == 'object' && value["type"]) {
             value.allowNull = value.allowNull || false;
             attrs[key] = value;
         }else{
@@ -49,7 +49,8 @@ let defineModel = (name, attributes) => {
         type: Sequelize.BIGINT,
         allowNull: false
     }
-
+    console.log('model defined for table', name);
+    sequelize[name] = name;
     return sequelize.define(name, attrs, {
         tableName: name,
         timestamps: false,
@@ -77,8 +78,11 @@ let defineModel = (name, attributes) => {
 let exp = {
     defineModel: defineModel,
     sync: ()=>{
+        console.log("-----test-sync-----", sequelize.pets, sequelize.users);
         if(process.env.NODE_ENV !== 'production'){
-            Sequelize.sync({force: true});
+            sequelize.sync({force: true}).then(() => {
+                console.log("----success sync model----");
+            })
         }else{
             throw new Error('Cannot sync() when NODE_ENV is set to \'production\'.');
         }
