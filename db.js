@@ -50,7 +50,6 @@ let defineModel = (name, attributes) => {
         allowNull: false
     }
     console.log('model defined for table', name);
-    sequelize[name] = name;
     return sequelize.define(name, attrs, {
         tableName: name,
         timestamps: false,
@@ -77,11 +76,11 @@ let defineModel = (name, attributes) => {
 
 let exp = {
     defineModel: defineModel,
-    sync: ()=>{
-        console.log("-----test-sync-----", sequelize.pets, sequelize.users);
+    sync: async ()=>{
         if(process.env.NODE_ENV !== 'production'){
-            sequelize.sync({force: true}).then(() => {
+            await sequelize.sync({force: true}).then((result) => {
                 console.log("----success sync model----");
+                process.exit(0);
             })
         }else{
             throw new Error('Cannot sync() when NODE_ENV is set to \'production\'.');
